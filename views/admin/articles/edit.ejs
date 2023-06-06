@@ -1,0 +1,59 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container">
+    <hr>
+    <div class="card">
+        <div class="card-header">
+            <h2>Editar artigo</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/articles/update">
+                <input type="hidden" value="<%= article.id %>" name="id">
+                <input class="form-control" type="text" name="title" placeholder="Defina o título do artigo" value="<%= article.title %>">
+                <br>
+                <textarea id="article" name="body" id="" cols="30" rows="10" class="form-control" placeholder="Escreva o artigo aqui!"><%- article.body %></textarea>
+                <br>
+                <label for="">Categoria</label>
+                <select name="category" id="" class="form-control">
+                    <% categories.forEach((category) => {%>
+                        <% if(category.id == article.categoryId){ %>
+                            <option value="<%= category.id%>" selected><%= category.title %></option>
+                        <% }else{ %>
+                            <option value="<%= category.id%>"><%= category.title %></option>
+                        <% } %>
+                    <% })%>
+                </select>
+                <br>
+                <button class="btn btn-success">Atualziar</button>
+            </form>
+        </div>        
+    </div>
+</div>
+
+
+<%- include ('../../partials/footer.ejs') %>
+<script src="/tinymce/tinymce.min.js"></script>
+
+<script>
+    tinymce.init({
+        language: 'pt_BR',
+        selector: '#article',
+        plugins: [
+        'advlist',
+        'autolink',
+        'link',
+        'image',
+        'lists',
+        'preview',
+        'searchreplace',
+        'wordcount',
+        'fullscreen',
+        'insertdatetime',
+        'media',
+        'save',
+        'table',
+        'emoticons',
+    ]
+    })
+</script>
